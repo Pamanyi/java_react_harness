@@ -10,11 +10,18 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
+  - step:
+      type: Run
+      identifier: build_javascript_app
+      name: Build JavaScript App
+      spec:
+        shell: Sh
+        command: |-
+          echo "Welcome to Harness CI"
+          node --version
+          npm install
+          npm run build --if-present
+          npm test
 - script: |
     npm install
     npm run build
